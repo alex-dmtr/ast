@@ -5,9 +5,11 @@
     int main()
     {
         
-int a;
+int a,b,c;
 a=2+2;
+b=a+3;
 cout<<a<<endl;
+cout<<b<<endl;
 
 
         

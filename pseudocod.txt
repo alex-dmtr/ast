@@ -1,5 +1,7 @@
 inceput
-intreg a
+intreg a b c
 a <- 2 + 2
+b <- a + 3
 afisare a
+afisare b
 sfarsit
