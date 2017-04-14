@@ -1,0 +1,5 @@
+inceput
+intreg a
+a <- 2 + 2
+afisare a
+sfarsit
