@@ -2,21 +2,35 @@
 using namespace std;
 int main()
 {
-    int a,b,c;
+    int a,b,dif;
     a=2+2;
     b=a+3;
     if (a>b)
     {
-        cout<<a<<endl;
-        cout<<1337<<endl;
+        dif=a-b;
     }
     else
     {
         if (b>a)
         {
-            cout<<b<<endl;
+            dif=b-a;
+        }
+        else
+        {
+            dif=0;
         }
     }
-    cout<<0<<endl;
+    cout<<dif<<endl;
+    int aux,p,cif;
+    aux=0;
+    p=1;
+    while (a>0)
+    {
+        cif=a%2;
+        aux=aux+p*cif;
+        p=p*10;
+        a=a/2;
+    }
+    cout<<aux<<endl;
     return 0;
 }

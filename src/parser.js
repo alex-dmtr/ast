@@ -32,7 +32,7 @@ class Parser {
         winston.info(`line ${_i}`, line);
         
          var tokens = line.split(/,| |\t/);
-      
+        tokens = tokens.filter((token) => token !== "");
         // console.log(tokens);
         
         if (tokens[0] == "inceput")
@@ -102,6 +102,28 @@ class Parser {
           }
           
           console.log("put if node");
+        }
+        else if (tokens[0] == "cat" && tokens[1] == "timp") {
+          assert(tokens[tokens.length-1] === 'executa', "expected executa");
+          
+          var exprTokens = _.slice(tokens, 2, tokens.length-1);
+          
+          let conditionNode = tree.parseExpression(exprTokens);
+          
+          let loop_Info = parseLines(_i+1, node);
+          
+          let dummyNode = tree.createNode();
+          
+          let whileNode = tree.createNode({
+            type: 'while',
+            condition: conditionNode,
+            loop: loop_Info.firstNode,
+            next: dummyNode
+          });
+          
+          node.next = whileNode;
+          node = dummyNode;
+          _i = loop_Info.exitIndex;
         }
         else if (tokens[0] == "altfel" || tokens[0] == "sfarsit") {
           break;

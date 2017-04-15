@@ -8,9 +8,17 @@ class Transpiler {
         var left = transpileExpression(node.children[0]);
         var right = transpileExpression(node.children[1]);
         if (node.operator == 'assign') 
-          return transpileExpression(node.children[0]) + '=' + transpileExpression(node.children[1]);
+          return `${left}=${right}`;//transpileExpression(node.children[0]) + '=' + transpileExpression(node.children[1]);
         else if (node.operator == 'addition')
-          return transpileExpression(node.children[0]) + '+' + transpileExpression(node.children[1]);
+          return `${left}+${right}`;//transpileExpression(node.children[0]) + '+' + transpileExpression(node.children[1]);
+        else if (node.operator == 'subtract')
+          return `${left}-${right}`;
+        else if (node.operator == 'mult')
+          return `${left}*${right}`;
+        else if (node.operator == 'div')
+          return `${left}/${right}`;
+        else if (node.operator == 'mod')
+          return `${left}%${right}`;
         else if (node.operator == 'gt')
           return `${left}>${right}`;
         
@@ -43,6 +51,12 @@ class Transpiler {
         if (node.falseBranch) {
           line += `else {${getBlockCode(node.falseBranch)}}`;
         }
+        
+        skipSemicolon = true;
+      }
+      else if (node.type == "while") {
+        line += `while (${getNodeCode(node.condition, true)})`;
+        line += `{${getBlockCode(node.loop)}}`;
         
         skipSemicolon = true;
       }

@@ -82,6 +82,19 @@ class AstNode_If extends AstNode {
   }
 }
 
+class AstNode_While extends AstNode {
+  /*
+    type,
+    condition
+    loop
+  */
+  constructor(options) {
+    super(options);
+    this.condition = options.condition;
+    this.loop = options.loop;
+  }
+}
+
 module.exports = {
   AstNode,
   AstNode_Declare,
@@ -89,5 +102,6 @@ module.exports = {
   AstNode_Expression,
   AstNode_Constant,
   AstNode_Variable,
-  AstNode_If
+  AstNode_If,
+  AstNode_While
 };

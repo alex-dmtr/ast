@@ -38,6 +38,8 @@ class AstTree {
     else if (options.type == 'if') {
       return new NodeTypes.AstNode_If(options);
     }
+    else if (options.type == 'while')
+      return new NodeTypes.AstNode_While(options);
     else if (options.type == 'end')
       return new NodeTypes.AstNode(options);
   }
@@ -83,6 +85,11 @@ class AstTree {
         priority: 1
       },
       {
+        type: 'eq',
+        symbols: ['=', '=='],
+        priority: 1
+      },
+      {
         type: 'addition',
         symbols: ['+'],
         priority: 2
@@ -99,9 +106,14 @@ class AstTree {
       },
       {
         type: 'div',
-        symbols: ['/'],
+        symbols: ['/', 'div'],
         priority: 3
       },
+      {
+        type: 'mod',
+        symbols: ['%', 'mod'],
+        priority: 3
+      }
       
       ];
       

@@ -1,18 +1,33 @@
 inceput
 
-intreg a b c
+intreg a, b, dif
 
 a <- 2 + 2
 b <- a + 3
 
 daca a > b atunci
-    afisare a
-    afisare 1337
+    dif <- a - b
 altfel
     daca b > a atunci
-        afisare b
+        dif <- b - a
+    altfel
+        dif <- 0
     sfarsit daca
 sfarsit daca
 
-afisare 0
+afisare dif
+
+intreg aux, p, cif
+aux <- 0
+p <- 1
+
+cat timp a > 0 executa
+    cif <- a mod 2
+    aux <- aux + p * cif
+    p <- p * 10
+    
+    a <- a / 2
+sfarsit cat timp
+
+afisare aux
 sfarsit
