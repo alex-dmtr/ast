@@ -12,7 +12,6 @@ var NodeTypes = require('./ast.node');
 // var AstNode_Variable = NodeTypes.AstNode_Variable;
 // var AstNode_If = NodeTypes.AstNode_If;
 
-console.log(this);
 
 class AstTree {
   constructor() {
@@ -21,7 +20,9 @@ class AstTree {
   
   createNode(options) {
     // console.log(`create ${options.type}`);
-    if (options.type === 'block-start')
+    if (options == null || !options.hasOwnProperty('type'))
+      return new NodeTypes.AstNode(_.extend(options, {type: 'empty'}));
+    else if (options.type === 'block-start')
       return new NodeTypes.AstNode(options);
     else if (options.type == 'declare')
       return new NodeTypes.AstNode_Declare(options);
@@ -33,6 +34,9 @@ class AstTree {
       return new NodeTypes.AstNode_Constant(options);
     else if (options.type == 'variable') {
       return new NodeTypes.AstNode_Variable(options);
+    }
+    else if (options.type == 'if') {
+      return new NodeTypes.AstNode_If(options);
     }
     else if (options.type == 'end')
       return new NodeTypes.AstNode(options);

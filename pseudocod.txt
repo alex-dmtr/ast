@@ -7,8 +7,12 @@ b <- a + 3
 
 daca a > b atunci
     afisare a
-atlfel
-    afisare b
+    afisare 1337
+altfel
+    daca b > a atunci
+        afisare b
+    sfarsit daca
 sfarsit daca
 
+afisare 0
 sfarsit

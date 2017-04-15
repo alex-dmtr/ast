@@ -1,55 +1,84 @@
 class AstNode {
-  constructor({type}) {
-    this.type = type;
-    this.next = null;
+  constructor(options) {
+    this.type = options.type;
+    this.next = options.next;
     
   }
 }
 
 class AstNode_Declare extends AstNode {
-  constructor({type, varType, registers}) {
-    super({type});
-    this.varType = varType;
-    this.registers = registers || [];
+  /*
+    type,
+    varType,
+    registers
+  */
+  constructor(options) {
+    super(options);
+    this.varType = options.varType;
+    this.registers = options.registers || [];
   }
 }
 
 class AstNode_Function extends AstNode {
-  constructor({type, functionName, parameters}) {
-    super({type});
-    this.functionName = functionName;
-    this.parameters = parameters;
+  /*
+    type,
+    functionName,
+    parameters
+  */
+  constructor(options) {
+    super(options);
+    this.functionName = options.functionName;
+    this.parameters = options.parameters;
   }
 }
 
 class AstNode_Expression extends AstNode {
-  constructor({type, children, operator}) {
-    super({type});
-    this.children = children;
-    this.operator = operator;
+  /*
+    type,
+    children,
+    operator
+  */
+  constructor(options) {
+    super(options);
+    this.children = options.children;
+    this.operator = options.operator;
   }
 }
 
 class AstNode_Constant extends AstNode {
-  constructor({type, value}) {
-    super({type});
-    this.value = value;
+  /*
+    type,
+    value
+  */
+  constructor(options) {
+    super(options);
+    this.value = options.value;
   }
 }
 
 class AstNode_Variable extends AstNode {
-  constructor({type, value}) {
-    super({type});
-    this.value = value;
+  /*
+    type,
+    value
+  */
+  constructor(options) {
+    super(options);
+    this.value = options.value;
   }
 }
 
 class AstNode_If extends AstNode {
-  constructor({type, condition, trueBranch, falseBranch}) {
-    super({type});
-    this.condition = condition;
-    this.trueBranch = trueBranch;
-    this.falseBranch = falseBranch;
+  /*
+    type,
+    condition,
+    trueBranch,
+    falseBranch
+  */
+  constructor(options) {
+    super(options);
+    this.condition = options.condition;
+    this.trueBranch = options.trueBranch;
+    this.falseBranch = options.falseBranch;
   }
 }
 

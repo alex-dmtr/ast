@@ -15,16 +15,21 @@ Parser.printTree(tree);
 fs.writeFileSync('./main.cpp', Transpiler.transpileToCpp(tree));
 
 const spawn = require('child_process').spawn;
-const gpp = spawn('g++', ['main.cpp']);
-gpp.on('close', () => {
-  
-  var prg = spawn('./a.out');
-  
-  prg.stdout.on('data', (data) => {
-    console.log(data.toString());
-  });
-  
-  prg.on('close', () => {
+
+const astyle = spawn('astyle', ['main.cpp', '--style=allman']);
+
+astyle.on('close', () => {
+  const gpp = spawn('g++', ['main.cpp']);
+  gpp.on('close', () => {
     
+    var prg = spawn('./a.out');
+    
+    prg.stdout.on('data', (data) => {
+      console.log(data.toString());
+    });
+    
+    prg.on('close', () => {
+      
+    });
   });
-})
+});
