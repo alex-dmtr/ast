@@ -1,10 +1,14 @@
 inceput
+
 intreg a b c
+
 a <- 2 + 2
 b <- a + 3
+
 daca a > b atunci
     afisare a
 atlfel
     afisare b
 sfarsit daca
+
 sfarsit

@@ -4,13 +4,15 @@ var _ = require('lodash');
 // import {AstNode, AstNode_Constant, AstNode_Declare, AstNode_Expression,
 // AstNode_Function, AstNode_Variable} from './ast.node';
 var NodeTypes = require('./ast.node');
-var AstNode = NodeTypes.AstNode;
-var AstNode_Constant = NodeTypes.AstNode_Constant;
-var AstNode_Declare = NodeTypes.AstNode_Declare;
-var AstNode_Expression = NodeTypes.AstNode_Expression;
-var AstNode_Function = NodeTypes.AstNode_Function;
-var AstNode_Variable = NodeTypes.AstNode_Variable;
+// var AstNode = NodeTypes.AstNode;
+// var AstNode_Constant = NodeTypes.AstNode_Constant;
+// var AstNode_Declare = NodeTypes.AstNode_Declare;
+// var AstNode_Expression = NodeTypes.AstNode_Expression;
+// var AstNode_Function = NodeTypes.AstNode_Function;
+// var AstNode_Variable = NodeTypes.AstNode_Variable;
+// var AstNode_If = NodeTypes.AstNode_If;
 
+console.log(this);
 
 class AstTree {
   constructor() {
@@ -20,20 +22,20 @@ class AstTree {
   createNode(options) {
     // console.log(`create ${options.type}`);
     if (options.type === 'block-start')
-      return new AstNode(options);
+      return new NodeTypes.AstNode(options);
     else if (options.type == 'declare')
-      return new AstNode_Declare(options);
+      return new NodeTypes.AstNode_Declare(options);
     else if (options.type == 'function')
-      return new AstNode_Function(options);
+      return new NodeTypes.AstNode_Function(options);
     else if (options.type == 'expression')
-      return new AstNode_Expression(options);
+      return new NodeTypes.AstNode_Expression(options);
     else if (options.type == 'constant')
-      return new AstNode_Constant(options);
+      return new NodeTypes.AstNode_Constant(options);
     else if (options.type == 'variable') {
-      return new AstNode_Variable(options);
+      return new NodeTypes.AstNode_Variable(options);
     }
     else if (options.type == 'end')
-      return new AstNode(options);
+      return new NodeTypes.AstNode(options);
   }
   
   // returns a node
@@ -58,7 +60,7 @@ class AstTree {
     }
     
     function isLetter(str) {
-     return (str.match(/[a-z]/i)) !== null;
+     return typeof(str) === 'string' && ((str.match(/[a-z]/i)) !== null);
   }
     var ops = [
       {
@@ -67,10 +69,36 @@ class AstTree {
         priority: 0
       },
       {
+        type: 'lt',
+        symbols: ['<'],
+        priority: 1
+      },
+      {
+        type: 'gt',
+        symbols: ['>'],
+        priority: 1
+      },
+      {
         type: 'addition',
         symbols: ['+'],
-        priority: 1
-      }
+        priority: 2
+      },
+      {
+        type: 'subtract',
+        symbols: ['-'],
+        priority: 2
+      },
+      {
+        type: 'mult',
+        symbols: ['*'],
+        priority: 3
+      },
+      {
+        type: 'div',
+        symbols: ['/'],
+        priority: 3
+      },
+      
       ];
       
     // console.log(tokens)

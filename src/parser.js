@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var winston = require('winston');
+var assert = require('assert');
 
 var AstTree = require('./ast.tree').AstTree;
 
@@ -9,11 +10,15 @@ class Parser {
       return line.trim();
     });
     
+    lines = lines.filter((line) => line !== "");
+    
     let tree = new AstTree();
     let node = null;
     
     lines.forEach((line) => {
-      var tokens = line.split(' ');
+      var tokens = line.split(/,| |\t/);
+      
+      // console.log(tokens);
       
       if (tokens[0] == "inceput")
       {
@@ -40,7 +45,13 @@ class Parser {
       }
       else if (tokens[0] == "daca")
       {
-        
+        assert(tokens[tokens.length-1] === 'atunci', "expected atunci");
+        var exprTokens = _.slice(tokens, 1, tokens.length-1);
+       
+        let conditionNode = tree.parseExpression(exprTokens);
+  
+        node.next = conditionNode;
+        node = node.next;
       }
       else {
         let exprNode = tree.parseExpression(tokens);

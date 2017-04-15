@@ -44,11 +44,21 @@ class AstNode_Variable extends AstNode {
   }
 }
 
+class AstNode_If extends AstNode {
+  constructor({type, condition, trueBranch, falseBranch}) {
+    super({type});
+    this.condition = condition;
+    this.trueBranch = trueBranch;
+    this.falseBranch = falseBranch;
+  }
+}
+
 module.exports = {
   AstNode,
   AstNode_Declare,
   AstNode_Function,
   AstNode_Expression,
   AstNode_Constant,
-  AstNode_Variable
+  AstNode_Variable,
+  AstNode_If
 };
