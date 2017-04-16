@@ -21,13 +21,19 @@ intreg aux, p, cif
 aux <- 0
 p <- 1
 
+intreg nr
+nr <- 0
 cat timp a > 0 executa
     cif <- a mod 2
     aux <- aux + p * cif
     p <- p * 10
     
     a <- a / 2
+    
+    daca cif = 1 atunci
+        nr <- nr + 1
+    sfarsit daca
 sfarsit cat timp
 
-afisare aux
+afisare aux, nr
 sfarsit
