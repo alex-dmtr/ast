@@ -14,8 +14,9 @@ router.post('/transpile', (req, res) => {
   
   let pseudocode = req.body.code;
   
-  let tree = Parser.parse(pseudocode);
-  Transpiler.transpileToCpp(tree)
+  Promise.resolve('hello there')
+  // let tree = Parser.parse(pseudocode);
+  // Transpiler.transpileToCpp(tree)
     .then((code) => {
       res.status(200).send(code);
     })

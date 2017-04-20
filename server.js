@@ -88,4 +88,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   winston.info('Listening on ' + bind);
+  winston.info(`https://ast-alexdumitru.c9users.io/`);
 }
