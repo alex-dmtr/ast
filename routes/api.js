@@ -13,7 +13,6 @@ var Transpiler = require('../lib/transpiler').Transpiler;
 router.post('/transpile', (req, res) => {
   
   let pseudocode = req.body.code;
-  // winston.info("FUCK YOU");
   
   let tree = Parser.parse(pseudocode);
   Transpiler.transpileToCpp(tree)

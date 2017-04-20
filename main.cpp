@@ -10,7 +10,14 @@ int main()
     }
     else
     {
-        cout<<b<<endl;
+        if (b>a)
+        {
+            cout<<b<<endl;
+        }
+        else
+        {
+            cout<<0<<endl;
+        }
     }
     i=1;
     while (i<n+1)
