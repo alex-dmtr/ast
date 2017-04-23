@@ -4,25 +4,32 @@ var path = require('path');
 fs = Promise.promisifyAll(fs);
 const spawn = require('child_process').spawn;
 var stream = require('stream');
+var rimraf = Promise.promisify(require('rimraf'));
+var assert = require('assert');
 
 var tempPath = path.resolve(__dirname, "temp");
 
 function createTempFolder() {
-  if (!fs.existsSync(tempPath))
-    fs.mkdirSync(tempPath);
+  
+  function makeDir() {
+    return fs.mkdirAsync(tempPath);
+  }
+  
+  if (fs.existsSync(tempPath))
+    return rimraf(tempPath).then(makeDir);
+  else
+    return makeDir();
 }
 
-function testCpp(code, input, output) {
+function testCpp(code, input, expectedOutput) {
   return new Promise(function(resolve, reject) { 
     
     var timestamp = +Date.now();
     
     var cppPath = path.resolve(tempPath, timestamp + '.cpp');
-    var inputPath = path.resolve(tempPath, timestamp + '.txt');
     var binPath = path.resolve(tempPath, timestamp + '.exe');
     
-    var tasks = [fs.writeFileAsync(cppPath, code), 
-                 fs.writeFileAsync(inputPath, input)];
+    var tasks = [fs.writeFileAsync(cppPath, code)];
     
     Promise.all(tasks).then(function() {
       
@@ -43,7 +50,8 @@ function testCpp(code, input, output) {
         });
         
         prg.on('close', () => {
-          console.log(output);
+          
+          assert.equal(output.trim(), expectedOutput.trim(), "wrong output");
           
           resolve();
         });
@@ -70,7 +78,7 @@ int main()
     return 0;
 }`;
 
-  return testCpp(code, "2 3", "3");
+  return testCpp(code, "2 3", "2");
 }
 
 context('transpiler', () => {
