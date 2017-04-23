@@ -6,8 +6,11 @@ const spawn = require('child_process').spawn;
 var stream = require('stream');
 var rimraf = Promise.promisify(require('rimraf'));
 var assert = require('assert');
-
+var Parser = require('../lib/parser').Parser;
+var Transpiler = require('../lib/transpiler').Transpiler;
 var tempPath = path.resolve(__dirname, "temp");
+var winston = require('winston');
+// winston.remove(winston.transports.Console);
 
 function createTempFolder() {
   
@@ -60,25 +63,27 @@ function testCpp(code, input, expectedOutput) {
 }
 )}
 
+function testPseudocode(code, input, expectedOutput) {
+  return Promise.resolve(Parser.parse(code))
+    .then(function(tree) {
+      return Transpiler.transpileToCpp(tree);
+    })
+    .then(function(cpp) {
+      return testCpp(cpp, input, expectedOutput);
+    });
+}
 function doTest() {
-   var code = `#include <iostream>
-using namespace std;
-int main()
-{
-    int a,b,n,i;
-    cin>>a>>b;
-    if (a>b)
-    {
-        cout<<a<<endl;
-    }
-    else
-    {
-        cout<<b<<endl;
-    }
-    return 0;
-}`;
-
-  return testCpp(code, "2 3", "2");
+   var code = `inceput
+   intreg a, b, suma
+   
+   citire a
+   citire b
+   
+   suma <- a + b
+   
+   afisare suma
+   sfarsit`;
+  return testPseudocode(code, "2 3", "5");
 }
 
 context('transpiler', () => {
@@ -87,6 +92,6 @@ context('transpiler', () => {
     return createTempFolder();
     });
     
-  it('should test basic cpp', doTest);
+  it('should test basic pseudocode', doTest);
   // testCpp().then(console.log).catch(console.log);
 });

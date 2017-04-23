@@ -2,15 +2,10 @@
 using namespace std;
 int main()
 {
-    int a,b,n,i;
-    cin>>a>>b;
-    if (a>b)
-    {
-        cout<<a<<endl;
-    }
-    else
-    {
-        cout<<b<<endl;
-    }
+    int a,b,suma;
+    cin>>a;
+    cin>>b;
+    suma=a+b;
+    cout<<suma<<endl;
     return 0;
 }
